@@ -10,60 +10,114 @@
 </head>
 
 <body>
+
     <div id="poke-app" class="container bg-success p-2">
-        <h1 class="bg-light rounded m-2 p-2">Pizza</h1>
+        <h1 class="bg-light rounded m-2 p-2">Pokemon</h1>
+
+        <div class="form-group bg-light rounded m-2 p-2">
+            <h2>Name:</h2>
+            <input type="text" name="name" id="name" v-model="name">
+        </div>
+
         <div class="form-group bg-light rounded m-2 p-2">
             <h2>1. Element:</h2>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown button
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item">Feuer</a>
-                    <a class="dropdown-item">Wasser</a>
-                    <a class="dropdown-item">Erde</a>
-                    <a class="dropdown-item">Stein</a>
-                    <a class="dropdown-item">Fee</a>
-                    <a class="dropdown-item">Drachen</a>
-                    <a class="dropdown-item">Gift</a>
-                </div>
+            <select id="selectTyp1" v-model="typ1" class="btn btn-secondary dropdown-toggle">
+                <option value="Feuer">Feuer</option>
+                <option value="Wasser">Wasser</option>
+                <option value="Erde">Erde</option>
+                <option value="Stein">Stein</option>
+                <option value="Fee">Fee</option>
+                <option value="Drachen">Drachen</option>
+                <option value="Gift">Gift</option>
+            </select>
+        </div>
+
+        <div class="form-group bg-light rounded m-2 p-2">
+            <h2>2. Element:</h2>
+            <select id="selectTyp2" v-model="typ2" class="btn btn-secondary dropdown-toggle">
+                <option value="Feuer">Feuer</option>
+                <option value="Wasser">Wasser</option>
+                <option value="Erde">Erde</option>
+                <option value="Stein">Stein</option>
+                <option value="Fee">Fee</option>
+                <option value="Drachen">Drachen</option>
+                <option value="Gift">Gift</option>
+            </select>
+        </div>
+
+        <div class="form-group bg-light rounded m-2 p-2">
+            <h2>Geschlecht:</h2>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radioSize" id="radioSizeMann" v-model="gender"
+                    value="Männlich">
+                <label class="form-check-label" for="radioSizeMann">Männlich</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radioSize" id="radioSizeFrau" v-model="gender"
+                    value="Weiblich">
+                <label class="form-check-label" for="radioSizeFrau">Weiblich</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radioSize" id="radioSizeDivers" v-model="gender"
+                    value="Divers">
+                <label class="form-check-label" for="radioSizeDivers">Divers</label>
             </div>
         </div>
 
         <div class="form-group bg-light rounded m-2 p-2">
-            <h2>Zutaten</h2>
+            <h2>Fähigkeiten:</h2>
             <div class="form-check">
-                <input v-model="kaese" class="form-check-input" type="checkbox" id="checkKaese">
-                <label class="form-check-label" for="checkKaese">
-                    Käse
+                <input v-model="donnerblitz" class="form-check-input" type="checkbox" id="checkDonnerblitz">
+                <label class="form-check-label" for="checkDonnerblitz">
+                    Donnerblitz
                 </label>
             </div>
             <div class="form-check">
-                <input v-model="schinken" class="form-check-input" type="checkbox" id="checkSchinken">
-                <label class="form-check-label" for="checkSchinken">
-                    Schinken
+                <input v-model="voltoball" class="form-check-input" type="checkbox" id="checkVoltoball">
+                <label class="form-check-label" for="checkVoltoball">
+                    Voltoball
                 </label>
             </div>
             <div class="form-check">
-                <input v-model="zwiebeln" class="form-check-input" type="checkbox" id="checkZwiebeln">
-                <label class="form-check-label" for="checkZwiebeln">
-                    Zwiebeln
-                </label>
-            </div>
-            <div class="form-check">
-                <input v-model="oliven" class="form-check-input" type="checkbox" id="checkOliven">
-                <label class="form-check-label" for="checkOliven">
-                    Oliven
-                </label>
-            </div>
-            <div class="form-check">
-                <input v-model="ananas" class="form-check-input" type="checkbox" id="checkAnanas">
-                <label class="form-check-label" for="checkAnanas">
-                    Ananas
+                <input v-model="surfer" class="form-check-input" type="checkbox" id="checSurfer">
+                <label class="form-check-label" for="checSurfer">
+                    Surfer
                 </label>
             </div>
         </div>
+
+        <ul class="list-group">
+            <li class="list-group-item">Name: {{name}}</li>
+            <li class="list-group-item">Erstes Element: {{ typ1 }}</li>
+            <li class="list-group-item">Zweites Element: {{ typ2 }}</li>
+            <li class="list-group-item">gender: {{gender}}</li>
+            <li class="list-group-item">donnerblitz: {{donnerblitz}}</li>
+            <li class="list-group-item">voltoball: {{voltoball}}</li>
+            <li class="list-group-item">surfer: {{surfer}}</li>
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const PokeApp = {
+            data() {
+                return {
+                    name: 'Pikachu',
+                    typ1: 'Wasser',
+                    typ2: 'Stein',
+                    gender: 'Männlich',
+                    donnerblitz: false,
+                    voltoball: true,
+                    surfer: true,
+                }
+            },
+            computed: {
+
+            },
+            methods: {
+            },
+        };
+        Vue.createApp(PokeApp).mount('#poke-app');
+    </script>
 </body>
 
 </html>
