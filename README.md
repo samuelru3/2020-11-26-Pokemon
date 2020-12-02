@@ -1,2 +1,2 @@
-# 2020-11-26-Pokemon
+# Pokemon Konfigurator
 Website zur konfiguration eines individuellen Pokemons.
