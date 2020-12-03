@@ -91,12 +91,13 @@
         </div>
 
         <ul class="list-group m-2">
-            <li class="list-group-item" v-for="pokemon in pokemonList"><strong>{{ pokemon.name }}</strong>:
+            <li class="list-group-item" v-for="pokemon in pokemonList"><strong>{{ pokemon.name }}</strong>
+                ({{ pokemon.gender }}):
                 {{ pokemon.typ1}},
-                {{ pokemon.typ2}} ({{ pokemon.gender }}), {{ pokemon.attacken }}
+                {{ pokemon.typ2}}, {{ pokemon.attacken }}
             </li>
         </ul>
-        <ul class="list-group m-2">
+        <!-- <ul class="list-group m-2">
             <li class="list-group-item">Name: {{name}}</li>
             <li class="list-group-item">Erstes Element: {{ typ1 }}</li>
             <li class="list-group-item">Zweites Element: {{ typ2 }}</li>
@@ -104,7 +105,7 @@
             <li class="list-group-item">donnerblitz: {{donnerblitz}}</li>
             <li class="list-group-item">voltoball: {{voltoball}}</li>
             <li class="list-group-item">surfer: {{surfer}}</li>
-        </ul>
+        </ul> -->
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script>
@@ -121,9 +122,9 @@
 
                     // --- Liste Aller Pokemons ---
                     pokemonList: [
-                        { name: 'Voltrobball', gender: 'Männlich' },
-                        { name: 'Relaxo', gender: 'Weiblich' },
-                        { name: 'Mew', gender: 'Divers' }
+                        { name: 'Voltrobball', gender: 'Männlich', typ1: 'Erde', typ2: 'Stein', voltoball: true, surfer: false, donnerblitz: true, attacken: 'Donnerblitz, Voltoball' },
+                        { name: 'Relaxo', gender: 'Weiblich', typ1: 'Erde', typ2: 'Stein', voltoball: true, surfer: false, donnerblitz: false, attacken: 'Voltoball' },
+                        { name: 'Mew', gender: 'Divers', typ1: 'Erde', typ2: 'Stein', voltoball: true, surfer: true, donnerblitz: true, attacken: 'Donnerblitz, Voltoball, Surfer' }
                     ]
                 }
             },
