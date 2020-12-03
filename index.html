@@ -98,9 +98,11 @@
                     {{ pokemon.typ1}},
                     {{ pokemon.typ2}}, {{ pokemon.attacken }}
                 </span>
-                <button class="btn btn-danger" @click="loeschen(pokemon.name)">-</button>
+                <button class="btn btn-danger" @click="loeschen(pokemon.name)"><img src=”eimer.svg” alt="-" width="auto"
+                        height="auto"></button>
             </li>
         </ul>
+
         <!-- <ul class="list-group m-2">
             <li class="list-group-item">Name: {{name}}</li>
             <li class="list-group-item">Erstes Element: {{ typ1 }}</li>
