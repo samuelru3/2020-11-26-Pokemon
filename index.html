@@ -85,13 +85,18 @@
                 </label>
             </div>
         </div>
-        <ul class="list-group" style="margin-bottom: 10px;">
+
+        <div class="m-2">
+            <button class="btn btn-block btn-primary" @click="hinzufuegen">Hinzufügen</button>
+        </div>
+
+        <ul class="list-group m-2" style="margin-bottom: 10px;">
             <li class="list-group-item">Meine Pokemon's:
             <li class="list-group-item" v-for="pokemon in pokemonList">Name: {{pokemon.name}} Geschlecht:
                 {{pokemon.gender}}
             </li>
         </ul>
-        <ul class="list-group">
+        <ul class="list-group m-2">
             <li class="list-group-item">Name: {{name}}</li>
             <li class="list-group-item">Erstes Element: {{ typ1 }}</li>
             <li class="list-group-item">Zweites Element: {{ typ2 }}</li>
@@ -126,6 +131,21 @@
 
             },
             methods: {
+                hinzufuegen() {
+                    //neues Pokemon erzeugen
+                    const newPokemon = {
+                        name: this.name,
+                        typ1: this.typ1,
+                        typ2: this.typ2,
+                        gender: this.gender,
+                        donnerblitz: this.donnerblitz,
+                        voltoball: this.voltoball,
+                        surfer: this.surfer,
+                    };
+
+                    //neues Pokemon an die liste anhängen
+                    this.pokemonList.push(newPokemon);
+                }
             },
         };
         Vue.createApp(PokeApp).mount('#poke-app');
