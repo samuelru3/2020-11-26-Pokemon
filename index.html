@@ -9,63 +9,61 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 
-<body style="text-align: center">
-
-    <div id="poke-app" class="container bg-success p-2">
+<body>
+    <div id="pokemon-app" class="container bg-success p-2">
         <h1 class="bg-light rounded m-2 p-2">Pokemon</h1>
 
-        <div class="form-group bg-light rounded m-2 p-2">
-            <h2>Name:</h2>
-            <input type="text" name="name" id="name" v-model="name">
-        </div>
+        <div class="bg-light rounded m-2 p-2">
+            <h2>Neues Pokemon eintragen</h2>
+            <div class="form-group bg-light rounded m-2 p-2">
+                <h3>Name</h3>
+                <input class="form-control" type="text" v-model="name">
+            </div>
 
-        <div class="form-group bg-light rounded m-2 p-2">
-            <h2>1. Element:</h2>
-            <select id="selectTyp1" v-model="typ1" class="btn btn-secondary dropdown-toggle">
-                <option value="Feuer">Feuer</option>
-                <option value="Wasser">Wasser</option>
-                <option value="Erde">Erde</option>
-                <option value="Stein">Stein</option>
-                <option value="Fee">Fee</option>
-                <option value="Drachen">Drachen</option>
-                <option value="Gift">Gift</option>
+            <div class="form-group bg-light rounded m-2 p-2">
+            <h3>Typ</h3>
+            <label for="selectTyp1">Erster Typ</label>
+            <select class="form-control" id="selectTyp1" v-model="typ1">
+                <option>Feuer</option>
+                <option>Normal</option>
+                <option>Wasser</option>
+                <option>Elektro</option>
+                <option>Pflanze</option>
+                <option>Eis</option>
             </select>
-        </div>
 
-        <div class="form-group bg-light rounded m-2 p-2">
-            <h2>2. Element:</h2>
-            <select id="selectTyp2" v-model="typ2" class="btn btn-secondary dropdown-toggle">
-                <option value="Feuer">Feuer</option>
-                <option value="Wasser">Wasser</option>
-                <option value="Erde">Erde</option>
-                <option value="Stein">Stein</option>
-                <option value="Fee">Fee</option>
-                <option value="Drachen">Drachen</option>
-                <option value="Gift">Gift</option>
+            <label for="selectTyp2">Zweiter Typ</label>
+            <select class="form-control" id="selectTyp2" v-model="typ2">
+                <option>Feuer</option>
+                <option>Normal</option>
+                <option>Wasser</option>
+                <option>Elektro</option>
+                <option>Pflanze</option>
+                <option>Eis</option>
             </select>
-        </div>
+            </div>
 
-        <div class="form-group bg-light rounded m-2 p-2">
-            <h2>Geschlecht:</h2>
+            <div class="form-group bg-light rounded m-2 p-2">
+            <h3>Geschlecht</h3>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="radioSize" id="radioSizeMann" v-model="gender"
-                    value="Männlich">
-                <label class="form-check-label" for="radioSizeMann">Männlich</label>
+                <input class="form-check-input" type="radio" name="radioGender" id="radioGenderM" v-model="gender"
+                    value="m">
+                <label class="form-check-label" for="radioGenderM">m</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="radioSize" id="radioSizeFrau" v-model="gender"
-                    value="Weiblich">
-                <label class="form-check-label" for="radioSizeFrau">Weiblich</label>
+                <input class="form-check-input" type="radio" name="radioGender" id="radioGenderW" v-model="gender"
+                    value="w">
+                <label class="form-check-label" for="radioGenderW">w</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="radioSize" id="radioSizeDivers" v-model="gender"
-                    value="Divers">
-                <label class="form-check-label" for="radioSizeDivers">Divers</label>
+                <input class="form-check-input" type="radio" name="radioGender" id="radioGenderD" v-model="gender"
+                    value="d">
+                <label class="form-check-label" for="radioGenderD">d</label>
             </div>
-        </div>
+            </div>
 
-        <div style="text-align: left" class="form-group bg-light rounded m-2 p-2">
-            <h2>Fähigkeiten:</h2>
+            <div class="form-group bg-light rounded m-2 p-2">
+            <h3>Attacken</h3>
             <div class="form-check">
                 <input v-model="donnerblitz" class="form-check-input" type="checkbox" id="checkDonnerblitz">
                 <label class="form-check-label" for="checkDonnerblitz">
@@ -79,8 +77,8 @@
                 </label>
             </div>
             <div class="form-check">
-                <input v-model="surfer" class="form-check-input" type="checkbox" id="checSurfer">
-                <label class="form-check-label" for="checSurfer">
+                <input v-model="surfer" class="form-check-input" type="checkbox" id="checkSurfer">
+                <label class="form-check-label" for="checkSurfer">
                     Surfer
                 </label>
             </div>
@@ -89,62 +87,104 @@
         <div class="m-2">
             <button class="btn btn-block btn-primary" @click="hinzufuegen">Hinzufügen</button>
         </div>
+        </div>
 
-        <ul class="list-group m-2">
-            <li class="list-group-item" v-for="pokemon in pokemonList"><strong>{{ pokemon.name }}</strong>:
-                {{ pokemon.typ1}},
-                {{ pokemon.typ2}} ({{ pokemon.gender }}), {{ pokemon.attacken }}
+        <div class="bg-light rounded m-2 p-2">
+            <h2>Statistik</h2>
+            <p>Anzahl der Pokemons: {{ anzahlPokemons }}</p>
+            <p>Anzahl der männlichen Pokemons: {{ anzahlMaennlich }}</p>
+            <p>Anzahl der weiblichen Pokemons: {{ anzahlWeiblich }} ({{ anteilWeiblichProzent }}%)</p>
+            <p>Anzahl der diversen Pokemons: {{ anzahlDivers }}</p>
+        </div>
+
+        <div class="bg-light rounded m-2 p-2">
+            <h2>Liste aller Pokemons</h2>
+            <ul class="list-group m-2">
+            <li class="list-group-item d-flex justify-content-between" v-for="pokemon in pokemonList" :key="pokemon.id">
+                <span>
+                    <strong>{{ pokemon.id }} {{ pokemon.name }}</strong>:
+                    {{ pokemon.typ1}},
+                    {{ pokemon.typ2}} ({{ pokemon.gender }}), {{ pokemon.attacken }}
+                </span>
+                <button class="btn btn-danger" @click="loeschen(pokemon.id)">-</button>
             </li>
-        </ul>
-        <ul class="list-group m-2">
-            <li class="list-group-item">Name: {{name}}</li>
-            <li class="list-group-item">Erstes Element: {{ typ1 }}</li>
-            <li class="list-group-item">Zweites Element: {{ typ2 }}</li>
-            <li class="list-group-item">gender: {{gender}}</li>
-            <li class="list-group-item">donnerblitz: {{donnerblitz}}</li>
-            <li class="list-group-item">voltoball: {{voltoball}}</li>
-            <li class="list-group-item">surfer: {{surfer}}</li>
-        </ul>
+           </ul>
+        </div>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script>
-        const PokeApp = {
+        const PokemonApp = {
             data() {
                 return {
+                    // --- Daten des neuen Pokemons ---                    
                     name: 'Pikachu',
                     typ1: 'Wasser',
-                    typ2: 'Stein',
-                    gender: 'Männlich',
+                    typ2: 'Elektro',
+                    gender: 'w',
                     donnerblitz: false,
                     voltoball: true,
-                    surfer: true,
+                    surfer: false,
 
-                    // --- Liste Aller Pokemons ---
+                    // --- Liste aller Pokemons ---
                     pokemonList: [
-                        { name: 'Voltrobball', gender: 'Männlich' },
-                        { name: 'Relaxo', gender: 'Weiblich' },
-                        { name: 'Mew', gender: 'Divers' }
+                        { id: 0, name: 'Voltoball', typ1: 'Elektro', typ2: 'Wasser', gender: 'd', donnerblitz: true, voltoball: true, surfer: false, attacken: 'Donnerblitz, Voltoball' },
+                        { id: 1, name: 'Relaxo', typ1: 'Normal', typ2: 'Normal', gender: 'm', donnerblitz: false, voltoball: false, surfer: true, attacken: 'Surfer' }
                     ]
                 }
             },
-            computed: {
 
-            },
-            methods: {
-                hinzufuegen() {
-                    //neues Pokemon erzeugen
-                    const newPokemon = {
-                        name: this.name,
-                        typ1: this.typ1,
-                        typ2: this.typ2,
-                        gender: this.gender,
-                        donnerblitz: this.donnerblitz,
-                        voltoball: this.voltoball,
-                        surfer: this.surfer,
-                        attacken: this.attackenliste(),
-                    };
-                    //neues Pokemon an die liste anhängen
-                    this.pokemonList.push(newPokemon);
+            computed: {
+                // --- berechnete Datenfelder ---
+                // --- werden zwischengespeichert ---
+                anzahlPokemons(){
+                    return this.pokemonList.length;
+                },
+
+                anzahlMaennlich(){
+                    let anzahl = 0;
+                    for(let i=0; i<this.pokemonList.length; i++){
+                        if(this.pokemonList[i].gender === 'm'){
+                            anzahl++;
+                        }
+                    }
+                    return anzahl;
+                },
+
+                anzahlWeiblich(){
+                    let anzahl = 0;
+                    for(let i=0; i<this.pokemonList.length; i++){
+                        if(this.pokemonList[i].gender === 'w'){
+                            anzahl++;
+                        }
+                    }
+                    return anzahl;
+                },
+
+                anteilWeiblichProzent(){
+                    const prozentWert = 100 * this.anzahlWeiblich / this.anzahlPokemons;
+                    const prozentWertGerundet = prozentWert.toFixed(0);
+                    return prozentWertGerundet;
+                },
+
+                anzahlDivers(){
+                    let anzahl = 0;
+                    for(let i=0; i<this.pokemonList.length; i++){
+                        if(this.pokemonList[i].gender === 'd'){
+                            anzahl++;
+                        }
+                    }
+                    return anzahl;
+                },
+
+                nextId(){
+                    // maximale Id + 1
+                    let maximaleId = -1;
+                    for(let i=0; i<this.pokemonList.length; i++){
+                        if(this.pokemonList[i].id > maximaleId){
+                            maximaleId = this.pokemonList[i].id;
+                        }
+                    }
+                    return maximaleId + 1;
                 },
 
                 attackenliste() {
@@ -160,12 +200,40 @@
                     }
                     return text;
                 }
-
-
-
             },
+
+            methods: {
+                hinzufuegen() {
+                    // neues Pokemon erzeugen
+                    const newPokemon = {
+                        id: this.nextId,
+                        name: this.name,
+                        typ1: this.typ1,
+                        typ2: this.typ2,
+                        gender: this.gender,
+                        donnerblitz: this.donnerblitz,
+                        voltoball: this.voltoball,
+                        surfer: this.surfer,
+                        attacken: this.attackenliste
+                    };
+
+                    // neues Pokemon an Liste anhängen
+                    this.pokemonList.push(newPokemon);
+                },                
+
+                loeschen(id) {
+                    // Pokemon mit der id von Liste enfernen
+                    let index = -1;
+                    for(let i=0; i<this.pokemonList.length; i++){
+                        if(this.pokemonList[i].id === id){
+                            index = i;
+                        }
+                    }
+                    this.pokemonList.splice(index,1);
+                }
+            }
         };
-        Vue.createApp(PokeApp).mount('#poke-app');
+        Vue.createApp(PokemonApp).mount('#pokemon-app');
     </script>
 </body>
 
