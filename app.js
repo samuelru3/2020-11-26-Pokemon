@@ -17,7 +17,9 @@ const PokemonApp = {
             ],
 
             // --- Variablen zum Sichtbarmachen ---
-            displayFormular: true
+            displayFormular: false,
+            displayStatistik: true,
+            displayListe: true,
         }
     },
 
@@ -107,7 +109,13 @@ const PokemonApp = {
 
             // neues Pokemon an Liste anhängen
             this.pokemonList.push(newPokemon);
-        },                
+        },       
+        
+        formularAnzeigen(){
+            this.displayFormular = true;
+            this.displayListe = false;
+            this.displayStatistik = false;
+        },
 
         loeschen(id) {
             // Pokemon mit der id von Liste enfernen
