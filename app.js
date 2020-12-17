@@ -110,9 +110,30 @@ const PokemonApp = {
             // neues Pokemon an Liste anhängen
             this.pokemonList.push(newPokemon);
 
+            // Statistik und Liste Anzeigen
             this.statistikUndListeAnzeigen();
+
+            //Daten persistent Speichern
+            this.speichern();
         },       
         
+        speichern(){
+            // Komplettes Array mit Pokemons im 'localStorage' Speichern
+            console.log("Speichern");
+            const text = JSON.stringify(this.pokemonList);
+            localStorage.setItem('pokemonliste', text)
+            console.log(text);
+        },
+
+        laden(){
+            if (localStorage.getItem('pokemonliste')) {
+                let dataString = localStorage.getItem('pokemonliste');
+                this.pokemonList = JSON.parse(dataString);
+            } else {
+                this.pokemonList = [];
+            }
+        },
+
         statistikUndListeAnzeigen(){
             this.displayFormular = false,
             this.displayStatistik = true,
@@ -134,7 +155,15 @@ const PokemonApp = {
                 }
             }
             this.pokemonList.splice(index,1);
+
+            //Daten persistent Speichern
+            this.speichern();
         }
+    },
+
+    mounted(){
+        //Persistent gespeichertre Daten Laden
+        this.laden();
     }
 };
 Vue.createApp(PokemonApp).mount('#pokemon-app');
