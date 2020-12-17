@@ -109,12 +109,20 @@ const PokemonApp = {
 
             // neues Pokemon an Liste anhängen
             this.pokemonList.push(newPokemon);
+
+            this.statistikUndListeAnzeigen();
         },       
         
+        statistikUndListeAnzeigen(){
+            this.displayFormular = false,
+            this.displayStatistik = true,
+            this.displayListe = true
+        },
+        
         formularAnzeigen(){
-            this.displayFormular = true;
-            this.displayListe = false;
-            this.displayStatistik = false;
+            this.displayFormular = true,
+            this.displayListe = false,
+            this.displayStatistik = false
         },
 
         loeschen(id) {
