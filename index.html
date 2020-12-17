@@ -15,7 +15,7 @@
         <h1 class="bg-light rounded m-2 p-2">Pokemon</h1>
 
         <!-- Formuar neues Pokemon-->
-        <div class="bg-light rounded m-2 p-2">
+        <div v-if="displayFormular" class="bg-light rounded m-2 p-2">
             <h2>Neues Pokemon eintragen</h2>
             <div class="form-group bg-light rounded m-2 p-2">
                 <h3>Name</h3>
@@ -112,9 +112,16 @@
                 </span>
                 <button class="btn btn-danger" @click="loeschen(pokemon.id)">-</button>
             </li>
+            <li class="list-group-item d-flex justify-content-between" >
+                <span>
+                    <strong>Neues Pokemon hinzufügen</strong>
+                    
+                </span>
+                <button class="btn btn-success" @click="loeschen(pokemon.id)">-</button>
+            </li>
            </ul>
         </div>
-        
+
     </div>
     <script src="https://unpkg.com/vue@next"></script>
    <script src="app.js"></script>
