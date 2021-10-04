@@ -1,168 +1,222 @@
+// ---------------
+// Vorname:
+// Nachname:
+// Klasse: T4A
+// ---------------
 const PokemonApp = {
     data() {
         return {
-            // --- Daten des neuen Pokemons ---                    
-            name: 'Pikachu',
-            typ1: 'Wasser',
-            typ2: 'Elektro',
-            gender: 'w',
-            donnerblitz: false,
-            voltoball: true,
-            surfer: false,
+            // ####### View, GUI #########################
+            // --- Daten des Formulars "Neues Pokemon" --- 
+            newPokemon: {},
 
+            // --- Daten des Update-Formulars ---
+            updatePokemon: {},
+
+            // --- Variablen zum Sichtbarmachen der Komponenten ---
+            display: {
+                statistik: true,
+                liste: true,
+                formNew: false,
+                formUpdate: false
+            },
+
+            // ####### Model #########################
             // --- Liste aller Pokemons ---
-            pokemonList: [
-                { id: 0, name: 'Voltoball', typ1: 'Elektro', typ2: 'Wasser', gender: 'd', donnerblitz: true, voltoball: true, surfer: false, attacken: 'Donnerblitz, Voltoball' },
-                { id: 1, name: 'Relaxo', typ1: 'Normal', typ2: 'Normal', gender: 'm', donnerblitz: false, voltoball: false, surfer: true, attacken: 'Surfer' }
-            ],
-
-            // --- Variablen zum Sichtbarmachen ---
-            displayFormular: false,
-            displayStatistik: true,
-            displayListe: true,
+            pokemonList: []
         }
     },
 
     computed: {
         // --- berechnete Datenfelder ---
         // --- werden zwischengespeichert ---
-        anzahlPokemons(){
+        // ##### für Statistik ##############
+        anzahlPokemons() {
             return this.pokemonList.length;
+        },        
+
+        anzahlMaennlich() {            
+            return this.anzahlGender('m');
         },
 
-        anzahlMaennlich(){
-            let anzahl = 0;
-            for(let i=0; i<this.pokemonList.length; i++){
-                if(this.pokemonList[i].gender === 'm'){
-                    anzahl++;
-                }
-            }
-            return anzahl;
+        anzahlWeiblich() {            
+            return this.anzahlGender('w');
         },
 
-        anzahlWeiblich(){
-            let anzahl = 0;
-            for(let i=0; i<this.pokemonList.length; i++){
-                if(this.pokemonList[i].gender === 'w'){
-                    anzahl++;
-                }
-            }
-            return anzahl;
+        anzahlDivers() {            
+            return this.anzahlGender('d');
         },
-
-        anteilWeiblichProzent(){
+        
+        anteilWeiblichProzent() {
             const prozentWert = 100 * this.anzahlWeiblich / this.anzahlPokemons;
             const prozentWertGerundet = prozentWert.toFixed(0);
             return prozentWertGerundet;
-        },
+        },        
 
-        anzahlDivers(){
-            let anzahl = 0;
-            for(let i=0; i<this.pokemonList.length; i++){
-                if(this.pokemonList[i].gender === 'd'){
-                    anzahl++;
-                }
-            }
-            return anzahl;
-        },
-
-        nextId(){
+        // ##### für neues Pokemon ##############
+        nextId() {
             // maximale Id + 1
             let maximaleId = -1;
-            for(let i=0; i<this.pokemonList.length; i++){
-                if(this.pokemonList[i].id > maximaleId){
+            for (let i = 0; i < this.pokemonList.length; i++) {
+                if (this.pokemonList[i].id > maximaleId) {
                     maximaleId = this.pokemonList[i].id;
                 }
             }
             return maximaleId + 1;
-        },
-
-        attackenliste() {
-            let text = '';
-            if (this.donnerblitz) {
-                text += 'Donnerblitz ';
-            }
-            if (this.voltoball) {
-                text += 'Voltoball ';
-            }
-            if (this.surfer) {
-                text += 'Surfer ';
-            }
-            return text;
-        }
+        }        
     },
 
     methods: {
-        hinzufuegen() {
-            // neues Pokemon erzeugen
-            const newPokemon = {
-                id: this.nextId,
-                name: this.name,
-                typ1: this.typ1,
-                typ2: this.typ2,
-                gender: this.gender,
-                donnerblitz: this.donnerblitz,
-                voltoball: this.voltoball,
-                surfer: this.surfer,
-                attacken: this.attackenliste
+        // ### GUI: Komponenten anzeigen und verstecken ###
+        formNewAnzeigen() {
+            this.display.statistik = false;
+            this.display.liste = false;
+            this.display.formNew = true;            
+            this.display.formUpdate = false;            
+        },
+
+        statistikUndListeAnzeigen() {
+            this.display.statistik = true;
+            this.display.liste = true;
+            this.display.formNew = false;
+            this.display.formUpdate = false;
+        },
+
+        updateAnzeigen(){
+            this.display.statistik = false;
+            this.display.liste = false;
+            this.display.formNew = false;
+            this.display.formUpdate = true;            
+        },
+
+        // ### Handler für Buttons ###
+        buttonNew(){
+            // Standardwerte für neues Pokemon einstellen
+            this.newPokemon = {                   
+                name: 'Pikachu',
+                typ: 'Wasser',
+                gender: 'w',
+                donnerblitz: false,
+                voltoball: true,
+                surfer: false
             };
+
+            // Formular zur Eingabe anzeigen
+            this.formNewAnzeigen();
+        },
+
+        buttonHinzufuegen() {
+            // neues Pokemon erzeugen aus Daten des Formulars und id hinzufügen            
+            const newPokemon = Object.assign({id: this.nextId}, this.newPokemon);
 
             // neues Pokemon an Liste anhängen
             this.pokemonList.push(newPokemon);
 
-            // Statistik und Liste Anzeigen
+            // Statistik und Liste anzeigen
             this.statistikUndListeAnzeigen();
 
-            //Daten persistent Speichern
+            // Daten persistent speichern
             this.speichern();
-        },       
-        
-        speichern(){
-            // Komplettes Array mit Pokemons im 'localStorage' Speichern
-            console.log("Speichern");
-            const text = JSON.stringify(this.pokemonList);
-            localStorage.setItem('pokemonliste', text)
-            console.log(text);
         },
 
-        laden(){
+        buttonLoeschen(id) {
+            // Pokemon mit der id von Liste enfernen
+            const index = this.getIndexFromId(id);
+            this.pokemonList.splice(index, 1);
+
+            // Daten persistent speichern
+            this.speichern();
+        },
+
+        buttonUpdate(id){
+            // Daten des Pokemon mit id holen
+            const index = this.getIndexFromId(id);
+            const aktuellesPokemon = this.pokemonList[index];
+
+            // Daten vom Pokemon auf GUI übertragen
+            this.updatePokemon = Object.assign({}, aktuellesPokemon);
+
+            // GUI anzeigen
+            this.updateAnzeigen();
+        },
+
+        buttonAenderungenSpeichern(id) {
+            // neues Pokemon erzeugen als Kopie von updatePokemon
+            const newPokemon = Object.assign({}, this.updatePokemon);                 
+           
+            // altes Pokemon durch neues ersetzen
+            const index = this.getIndexFromId(id);            
+            this.pokemonList[index] = newPokemon;
+
+            // Statistik und Liste anzeigen
+            this.statistikUndListeAnzeigen();
+
+            // Daten persistent speichern
+            this.speichern();
+        },
+        
+        buttonCancel(){
+            // GUI anzeigen
+            this.statistikUndListeAnzeigen();
+        },
+        
+        // ### Hilfsmethoden
+        anzahlGender(gender) {
+            let anzahl = 0;
+            for (let i = 0; i < this.pokemonList.length; i++) {
+                if (this.pokemonList[i].gender === gender) {
+                    anzahl++;
+                }
+            }
+            return anzahl;
+        },
+
+        getIndexFromId(id){
+            let index = -1; // falls id nicht gefunden wird
+            for (let i = 0; i < this.pokemonList.length; i++) {
+                if (this.pokemonList[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        },
+
+        attackenliste(pokemon) {
+            let text = '';
+            if (pokemon.donnerblitz) {
+                text += 'Donnerblitz ';
+            }
+            if (pokemon.voltoball) {
+                text += 'Voltoball ';
+            }
+            if (pokemon.surfer) {
+                text += 'Surfer ';
+            }
+            return text;
+        },
+
+        // ### Persistenz: localStorage ###
+        speichern() {
+            // Komplettes Array mit Pokemons im 'localStorage' speichern
+            const text = JSON.stringify(this.pokemonList);
+            localStorage.setItem('pokemonliste', text);            
+        },
+
+        laden() {
+            // Daten aus 'localStorage' laden
             if (localStorage.getItem('pokemonliste')) {
                 let dataString = localStorage.getItem('pokemonliste');
                 this.pokemonList = JSON.parse(dataString);
             } else {
                 this.pokemonList = [];
             }
-        },
-
-        statistikUndListeAnzeigen(){
-            this.displayFormular = false,
-            this.displayStatistik = true,
-            this.displayListe = true
-        },
-        
-        formularAnzeigen(){
-            this.displayFormular = true,
-            this.displayListe = false,
-            this.displayStatistik = false
-        },
-
-        loeschen(id) {
-            // Pokemon mit der id von Liste enfernen
-            let index = -1;
-            for(let i=0; i<this.pokemonList.length; i++){
-                if(this.pokemonList[i].id === id){
-                    index = i;
-                }
-            }
-            this.pokemonList.splice(index,1);
-
-            //Daten persistent Speichern
-            this.speichern();
         }
     },
 
-    mounted(){
-        //Persistent gespeichertre Daten Laden
+    mounted() {
+        // Beim Start der App:
+        // persistent gespeicherte Daten laden
         this.laden();
     }
 };
